@@ -65,15 +65,16 @@
         <!-- Left -->
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <!-- future dev: going to work on having the buttons below scroll to the desired place on the portfolio -->
-            <a class="nav-link" data-scroll="#about-me" >About Me
-            </a>
+            <a class="nav-link" data-scroll="home" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-scroll="#portfolio">Portfolio</a>
+            <a class="nav-link" data-scroll="about-me" href="#">About Me</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-scroll="#contact">Contact</a>
+            <a class="nav-link" data-scroll="portfolio" href="#">Portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-scroll="contact-me" href="#">Contact</a>
           </li>
 
         </ul>
@@ -420,12 +421,17 @@
         <script type="text/javascript">
           // Animations initialization
           new WOW().init();
-          $(".nav-link").click(function () {
-            let scrollToId = $(this).data("scroll");
-            let scrollToElement = document.getElementById(scrollToId);
-            console.log("working:" + scroll);
-          });
-
+          $('a[data-scroll]').click(function (e) {
+            e.preventDefault();
+            //Set Offset Distance from top to account for fixed nav
+            var offset = 10;
+            var target = ('#' + $(this).data('scroll'));
+            var $target = $(target);
+            //Animate the scroll to, include easing lib if you want more fancypants easings
+            $('html, body').stop().animate({
+              'scrollTop': $target.offset().top - offset
+            }, 800, 'swing');
+          }); 
         </script>
 </body>
 
